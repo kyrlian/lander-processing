@@ -46,13 +46,10 @@ void generateTerrain() {
   for (int i = 0; i < terrainResolution; i++) {
     terrain[i] = noise(i * noiseScale) * height / 2 + height / 2;
   }
-  int flatPosition = int(random(terrainResolution - terrainResolution /
-10));
+  int flatPosition = int(random(terrainResolution - terrainResolution / 10));
   flatStart = map(flatPosition, 0, terrainResolution, 0, width);
-  flatEnd = map(flatPosition + terrainResolution / 10, 0,
-terrainResolution, 0, width);
-  for (int i = flatPosition; i < flatPosition + terrainResolution / 10;
-i++) {
+  flatEnd = map(flatPosition + terrainResolution / 10, 0, terrainResolution, 0, width);
+  for (int i = flatPosition; i < flatPosition + terrainResolution / 10; i++) {
     terrain[i] = height - height / 4; // Flat surface
   }
 }
@@ -64,9 +61,9 @@ void drawTerrain() {
     float y1 = terrain[i -1];
     float x2 = map(i ,0 ,terrainResolution -1 ,0 ,width);
     float y2 = terrain[i];
-
+    
     line(x1,y1,x2,y2);
-
+    
     if (x1 >= flatStart && x2 <= flatEnd) {
       stroke(0,255,0); // Green for flat surface
       line(x1,y1,x2,y2);
@@ -78,16 +75,14 @@ void drawTerrain() {
 void drawLander() {
    fill(255);
    rectMode(CENTER);
-   rect(landerX, landerY,20 ,20);
+   rect(landerX, landerY,20 ,20); 
    fill(255,0,0); // Red color for thrusters
    if (leftThruster) {
-     triangle(landerX -10 ,landerY+10 ,landerX-15 ,landerY +15 ,landerX-5
-,landerY+15 );
+     triangle(landerX -10 ,landerY+10 ,landerX-15 ,landerY +15 ,landerX-5 ,landerY+15 );
    }
-
+   
    if (rightThruster) {
-     triangle(landerX +10 ,landerY +10 ,landerX+15 ,landerY +15 ,landerX+5
-,landerY+15 );
+     triangle(landerX +10 ,landerY +10 ,landerX+15 ,landerY +15 ,landerX+5 ,landerY+15 );
    }
    fill(255);
 }
@@ -116,8 +111,7 @@ void updateLander() {
 void checkCollision() {
    int index =(int) map(landerX ,0 ,width ,0 ,terrainResolution -1 );
    if (landerY >= terrain[index]) { // Collision with terrain
-     if (landerX >flatStart && landerX <flatEnd && abs(landerVX) <3&&
-abs(landerVY) <3) {
+     if (landerX >flatStart && landerX <flatEnd && abs(landerVX) <3&& abs(landerVY) <3) { 
        score++;
        generateTerrain();
        resetGame(); // Successful landing
@@ -129,11 +123,11 @@ abs(landerVY) <3) {
 }
 
 void mousePressed() {
-   if (mouseX <width /3) {
+   if (mouseX <width /3) { 
      leftThruster=true;
-   } else if (mouseX >width *2/3) {
+   } else if (mouseX >width *2/3) { 
      rightThruster=true;
-   } else {
+   } else { 
      leftThruster=true;
      rightThruster=true;
    }
